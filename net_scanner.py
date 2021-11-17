@@ -32,5 +32,5 @@ def print_result(ip_list):
 
 
 ip_range = get_ip()
-scan_result = net_scan(ip_range.target)
+scan_result = net_scan(ip_range.target) # .target is the field that contains the entered ip in (The add_option method "dest")
 print_result(scan_result)
