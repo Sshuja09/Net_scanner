@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 import scapy.all as scapy
 import optparse
+# import argparse (New lib of optparse for python 3)
 
 # This will scan and return all the MAC and IP address combination on the network.
 def net_scan(ip):
-    arp_req = scapy.ARP(pdst=ip)
+    arp_req = scapy.ARP(pdst=ip) 
     broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
     arp_broadcast = broadcast/arp_req
     answer_list = scapy.srp(arp_broadcast, timeout=1, verbose=False)[0]
@@ -16,9 +17,9 @@ def net_scan(ip):
 
 # This will parser through the command line get the given IP or IP range
 def get_ip():
-    parser = optparse.OptionParser()
-    parser.add_option("-t", "--target", dest="target", help="Enter an IP address or an IP range")
-    ip = parser.parse_args()[0]
+    parser = optparse.OptionParser() #argparse.ArgumentParser()
+    parser.add_option("-t", "--target", dest="target", help="Enter an IP address or an IP range") # add_argument()
+    ip = parser.parse_args()[0] # parse_args works with the new lib argparse but it only returns the values so no need for "[0]" in the end
     if not ip.target:
         parser.error("Please enter a Ip addres or a range")
     return ip
